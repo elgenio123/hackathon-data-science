@@ -68,39 +68,34 @@ def get_female_first_names(url):
     else:
         return f"Failed to retrieve the page, status code: {response.status_code}"
     
-def get_last_names(url):
+def get_last_names(file_path):
 
-    headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
-    'Accept-Language': 'en-US,en;q=0.9',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Connection': 'keep-alive'
-}
+    with open(file_path, 'r', encoding='utf-8') as file:
+        html_content = file.read()
 
-    response = requests.get(url, headers=headers, verify=False, timeout=1000)
-    
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        table = soup.find('table', attrs={'class': 'table forename-table'})
-        if table:
-            list_of_female_surNames = []
-            
-            for row in table.find_all('tr'):
-                cells = row.find_all('td') 
-                # print(row)
-                if len(cells)>=2:
+    # Parse the HTML content using BeautifulSoup
+    soup = BeautifulSoup(html_content, 'html.parser')
 
-                    first_name = cells[1].text.strip()
-                    list_of_female_surNames.append(first_name)
-            return list_of_female_surNames
-        else:
-            return "Table with rules='none' not found."
+    # Find the table with the class name you specified
+    table = soup.find('table', attrs={'class': 'table forename-table'})
+    if table:
+        list_of_female_surNames = []
+
+        # Iterate over the rows of the table
+        for row in table.find_all('tr'):
+            cells = row.find_all('td')
+            if len(cells) >= 2:
+                # Extract the second cell's text and add it to the list
+                first_name = cells[1].text.strip()
+                list_of_female_surNames.append(first_name)
+
+        return list_of_female_surNames
     else:
-        return f"Failed to retrieve the page, status code: {response}"
+        return "Table with class 'table forename-table' not found."
 
 def get_commune_names(url):
     response = requests.get(url)
-
+    
     if response.status_code == 200:
 
         soup = BeautifulSoup(response.content, "html.parser")

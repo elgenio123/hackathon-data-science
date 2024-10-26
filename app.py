@@ -39,7 +39,7 @@ def get_girls_names():
 def get_last_name():
     try:
         
-        url = 'https://forebears.io/cameroon/surnames'
+        url = "./last_names.html"
         s = get_last_names(url)
 
         return jsonify({'data': str(s), "length": len(s)})
@@ -67,8 +67,8 @@ def generate_last_names():
         if not all([size, seed]):
             return jsonify({'error': 'Missing parameters'}), 400
         
-        url = 'https://forebears.io/cameroon/surnames'
-        base_list = get_last_names(url)
+        file_path = "./last_names.html"
+        base_list = get_last_names(file_path)
         s = generate_students_names(size=size, base_list=base_list, seed=seed)
 
         return jsonify({'data': str(s), "length": len(s)})
@@ -120,7 +120,7 @@ def generate_students():
         base_list = get_female_first_names(url)
         female = generate_students_names(size=males, base_list=base_list, seed=seed)
 
-        url = 'https://forebears.io/cameroon/surnames'
+        url = "./last_names.html"
         base_list = get_last_names(url)
         if males is not None and females is not None:
             value = int(males) + int(females)
