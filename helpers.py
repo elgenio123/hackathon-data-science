@@ -77,7 +77,7 @@ def get_last_names(url):
     'Connection': 'keep-alive'
 }
 
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, verify=False, timeout=1000)
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, 'html.parser')
