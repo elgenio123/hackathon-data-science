@@ -15,7 +15,7 @@ def get_male_first_names(url):
             for row in table.find_all('tr'):
                 if i not in [0,1, 168]:
                     cells = row.find_all('td') 
-                    print(cells)
+                    # print(cells)
                     first_name = cells[2].text.strip() 
                     list_of_male_firstNames.append(first_name)
                     first_name = cells[6].text.strip() 
@@ -24,7 +24,7 @@ def get_male_first_names(url):
                     list_of_male_firstNames.append(first_name)
                 if i == 168:
                     cells = row.find_all('td') 
-                    print(cells)
+                    # print(cells)
                     first_name = cells[2].text.strip() 
                     list_of_male_firstNames.append(first_name)
                     first_name = cells[6].text.strip() 
@@ -49,7 +49,7 @@ def get_female_first_names(url):
             for row in table.find_all('tr'):
                 if i not in [0,1, 165]:
                     cells = row.find_all('td') 
-                    print(len(table.find_all('tr')))
+                    # print(len(table.find_all('tr')))
                     first_name = cells[2].text.strip() 
                     list_of_female_firstNames.append(first_name)
                     first_name = cells[6].text.strip() 
@@ -58,7 +58,7 @@ def get_female_first_names(url):
                     list_of_female_firstNames.append(first_name)
                 if i == 165:
                     cells = row.find_all('td') 
-                    print(cells)
+                    # print(cells)
                     first_name = cells[2].text.strip() 
                     list_of_female_firstNames.append(first_name)
                 i += 1 
@@ -71,8 +71,11 @@ def get_female_first_names(url):
 def get_last_names(url):
 
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36'
-    }
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive'
+}
 
     response = requests.get(url, headers=headers)
     
@@ -84,7 +87,7 @@ def get_last_names(url):
             
             for row in table.find_all('tr'):
                 cells = row.find_all('td') 
-                print(row)
+                # print(row)
                 if len(cells)>=2:
 
                     first_name = cells[1].text.strip()
@@ -106,7 +109,7 @@ def get_commune_names(url):
         for table in tables:
             for row in table.find_all("tr"):
                 cells = row.find_all(["td"])
-                print(cells)
+                # print(cells)
                 text = cells[0].text.strip()
                 if text:
                     communes.append(text)
