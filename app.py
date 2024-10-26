@@ -118,14 +118,15 @@ def generate_students():
 
         url = 'https://top-names.info/names.php?S=F&P=CAM'
         base_list = get_female_first_names(url)
-        female = generate_students_names(size=males, base_list=base_list, seed=seed)
+        female = generate_students_names(size=females, base_list=base_list, seed=seed)
 
         url = "./last_names.html"
         base_list = get_last_names(url)
         if males is not None and females is not None:
             value = int(males) + int(females)
+
             last_names = generate_students_names(size=value, base_list=base_list, seed=seed)
-            overall_list = concatenate_lists(last_names, male, female)
+            overall_list = concatenate_lists(list1=male, list2=female, list3=last_names)
 
         return jsonify({'data': str(overall_list), "length": len(overall_list)})
 

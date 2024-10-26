@@ -128,23 +128,24 @@ def generate_students_names(size, base_list, seed=None):
     
     return selected_names
 
-def concatenate_lists(list300, list140, list160):
+def concatenate_lists(list1, list2, list3):
+    # Ensure the length of list3 is equal to the sum of list1 and list2
+    # print(len(list3))
+    # print(len(list1))
+    # print(len(list2))
+    if len(list3) != len(list1) + len(list2):
+        return "The length of list3 must be equal to the sum of list1 and list2."
+
     result = []
-    
-    len140 = len(list140)
-    len160 = len(list160)
-    
-    for i in range(len(list300)):
-        if i < len140:
-            concatenated = list140[i] +' '+ list300[i]
-        else:
-            index_in_160 = i - len140
-            if index_in_160 < len160:
-                concatenated = list160[index_in_160] +' '+ list300[i]
-            else:
-                concatenated = list300[i]
-                
-        result.append(concatenated)
-    
+
+    # Concatenate elements from list1 with the corresponding elements in list3
+    for i in range(len(list1)):
+        result.append(list1[i] +' '+ list3[i])
+
+    # Concatenate elements from list2 with the remaining elements in list3
+    offset = len(list1)
+    for j in range(len(list2)):
+        result.append(list2[j] +' '+ list3[offset + j])
+
     return result
     
